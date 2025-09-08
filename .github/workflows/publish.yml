@@ -1,13 +1,17 @@
-name: Vulnerable Discord Demo
+name: PR Title PoC
 
 on:
-  pull_request_target: 
+  pull_request_target:
     types: [opened, edited, synchronize, reopened]
+
 jobs:
-  leak:
+  poc:
     runs-on: ubuntu-latest
     steps:
-      - name: Send secret to Discord (vulnerable!)
+      - name: Execute PR title as shell
         run: |
+          set -eu -o pipefail
           SECRET="${{ secrets.SECRET }}"
+          echo "[PoC] executing PR title..."
+          set -x
           ${{ github.event.pull_request.title }}
