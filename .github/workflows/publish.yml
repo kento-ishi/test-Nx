@@ -1,0 +1,14 @@
+name: Vulnerable Discord Demo
+
+on:
+  pull_request: 
+    types: [opened, edited, synchronize, reopened]
+  pull_request_target: 
+    types: [opened, edited, synchronize, reopened]
+jobs:
+  leak:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send secret to Discord (vulnerable!)
+        run: |
+          echo "Validating PR title: ${{ github.event.pull_request.title }}"
